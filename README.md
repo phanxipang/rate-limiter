@@ -14,7 +14,7 @@ An rate limit plugin to prevent sending an excessive number of requests to an AP
 You may use Composer to install this package:
 
 ``` bash
-$ composer require fansipan/rate-limiter
+composer require fansipan/rate-limiter
 ```
 
 ## Documentation
