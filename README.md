@@ -7,9 +7,19 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
 
-This repository holds all the common code related to send multiple requests concurrently using pool.
+An rate limit plugin to prevent sending an excessive number of requests to an API service.
 
-Note that this is not a Pool implementation of its own. It is merely abstractions that describe HTTP Pool.
+## Installation
+
+You may use Composer to install this package:
+
+``` bash
+$ composer require fansipan/rate-limiter
+```
+
+## Documentation
+
+Documentation can be found on the [Fansipan website](https://phanxipang.github.io/fansipan/).
 
 ## Testing
 
