@@ -89,6 +89,5 @@ final class MiddlewareTest extends TestCase
         $this->expectException(RateLimitReachedException::class);
 
         $connector->send(new DummyRequest());
-        dump($this->cache);
     }
 }
