@@ -34,11 +34,12 @@ final class HeaderRateLimiter implements RateLimiterInterface
 
     public function __construct(
         CacheInterface $cache,
+        string $cacheKey = self::CACHE_KEY,
         string $remainingHeader = 'X-RateLimit-Remaining',
         string $expiresAfterHeader = 'Retry-After'
     ) {
         $this->cache = $cache;
-        $this->cacheKey = self::CACHE_KEY;
+        $this->cacheKey = $cacheKey;
         $this->remainingHeader = $remainingHeader;
         $this->expiresAfterHeader = $expiresAfterHeader;
     }
@@ -51,7 +52,7 @@ final class HeaderRateLimiter implements RateLimiterInterface
             return false;
         }
 
-        return (int) $remaining === 0;
+        return (int) $remaining <= 0;
     }
 
     public function hit(RequestInterface $request, ResponseInterface $response): void

@@ -38,7 +38,7 @@ final class RateLimiter implements RateLimiterInterface
                 continue;
             }
 
-            if ($remaining === 0) {
+            if ($remaining <= 0) {
                 return true;
             }
         }
@@ -56,7 +56,7 @@ final class RateLimiter implements RateLimiterInterface
                 $remaining = $limit->maxAttempts();
             }
 
-            $this->cache->set($key, --$remaining);
+            $this->cache->set($key, --$remaining, $limit->expiresAfter());
         }
     }
 }
