@@ -22,45 +22,45 @@ final class Limit
     private $threshold;
 
     /**
-     * @var null|string
+     * @var string
      */
     private $name;
 
     public function __construct(
         int $maxAttempts,
-        int $expiresAfter,
+        int $expiresAfterMs,
         float $threshold = 1,
         ?string $name = null
     ) {
         if ($maxAttempts < 1) {
             // @codeCoverageIgnoreStart
-            throw new \InvalidArgumentException(sprintf('Max attempts must be greater than or equal to one: "%s" given.', $maxAttempts));
+            throw new \InvalidArgumentException(sprintf('Max attempts must be greater than or equal to one: "%d" given.', $maxAttempts));
             // @codeCoverageIgnoreEnd
         }
 
         $this->maxAttempts = $maxAttempts;
 
-        if ($expiresAfter < 1) {
+        if ($expiresAfterMs < 1) {
             // @codeCoverageIgnoreStart
-            throw new \InvalidArgumentException(sprintf('Expire must be greater than or equal to one: "%s" given.', $expiresAfter));
+            throw new \InvalidArgumentException(sprintf('Expire must be greater than or equal to one: "%d" given.', $expiresAfterMs));
             // @codeCoverageIgnoreEnd
         }
 
-        $this->expiresAfter = $expiresAfter;
+        $this->expiresAfter = $expiresAfterMs;
 
         if ($threshold < 0 || $threshold > 1) {
             // @codeCoverageIgnoreStart
-            throw new \InvalidArgumentException(sprintf('Threshold must be between zero and one: "%s" given.', $expiresAfter));
+            throw new \InvalidArgumentException(sprintf('Threshold must be between zero and one: "%s" given.', $expiresAfterMs));
             // @codeCoverageIgnoreEnd
         }
 
         $this->threshold = $threshold;
-        $this->name = $name;
+        $this->name = $name ?? \microtime();
     }
 
-    public static function allow(int $maxAttempts): self
+    public static function allow(int $maxAttempts, int $expiresMinutes = 60): self
     {
-        return new self($maxAttempts, 3600);
+        return new self($maxAttempts, $expiresMinutes * 60);
     }
 
     public function key(): string
