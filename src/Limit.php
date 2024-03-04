@@ -67,7 +67,7 @@ final class Limit
     {
         $prefix = 'fansipan_rate_limit';
 
-        return $prefix.''.$this->name;
+        return $prefix.'_'.$this->name;
     }
 
     public function maxAttempts(bool $includeThreshold = true): int
