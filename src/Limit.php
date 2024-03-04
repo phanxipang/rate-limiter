@@ -63,6 +63,9 @@ final class Limit
         return new self($maxAttempts, $expiresMinutes * 60);
     }
 
+    /**
+     * Get the limit key for caching.
+     */
     public function key(): string
     {
         $prefix = 'fansipan_rate_limit';
@@ -70,6 +73,9 @@ final class Limit
         return $prefix.'_'.$this->name;
     }
 
+    /**
+     * Get the limit max request attempts.
+     */
     public function maxAttempts(bool $includeThreshold = true): int
     {
         return $includeThreshold
@@ -77,11 +83,17 @@ final class Limit
             : $this->maxAttempts;
     }
 
+    /**
+     * Get the expiration time in millisecond.
+     */
     public function expiresAfter(): int
     {
         return $this->expiresAfter;
     }
 
+    /**
+     * Set a custom name for the limit.
+     */
     public function withName(string $name): self
     {
         $clone = clone $this;
